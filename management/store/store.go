@@ -13,4 +13,10 @@ func (store *Postgress) NewStore() error {
 	dsn := "host=localhost user=dixitlukhi password=dixit93281 dbname=manage port=5432 sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
+	if err != nil {
+		return err
+	} else {
+		store.DB = db
+	}
+	return nil
 }
