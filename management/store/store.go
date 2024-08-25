@@ -23,3 +23,7 @@ func (store *Postgress) NewStore() error {
 	fmt.Println("db : ", db)
 	return nil
 }
+
+type StoreOperations interface {
+	NewStore() error
+}

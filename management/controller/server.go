@@ -6,10 +6,15 @@ import (
 )
 
 type Server struct {
-	PostgresDB store.Postgress
+	PostgresDB store.StoreOperations
 }
 
-func (s *Server) NewServer() {
+func (s *Server) NewServer(pgstore store.Postgress) {
+	s.PostgresDB = &pgstore
 	s.PostgresDB.NewStore()
 	fmt.Println("server : ", s)
+}
+
+type ServerOperations interface {
+	NewServer(pgstore store.Postgress)
 }
