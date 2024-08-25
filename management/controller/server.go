@@ -1,12 +1,15 @@
 package controller
 
-import "management/store"
+import (
+	"fmt"
+	"management/store"
+)
 
 type Server struct {
 	PostgresDB store.Postgress
 }
 
 func (s *Server) NewServer() {
-	Server := Server{}
-	Server.PostgresDB.NewStore()
+	s.PostgresDB.NewStore()
+	fmt.Println("server : ", s)
 }
