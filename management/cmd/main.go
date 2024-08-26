@@ -1,16 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"management/api"
 	"management/controller"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	api := api.ApiRoutes{}
-	api.StartApp(controller.Server{})
+	controller := controller.Server{}
 
+	routes := gin.Default()
+	api.StartApp(routes, controller)
+
+	routes.Run(":4000")
 	// server := controller.Server{}
 	// server.NewServer(store.Postgress{})
-	fmt.Println("main server", api)
+	// fmt.Println("main server", api)
 }
