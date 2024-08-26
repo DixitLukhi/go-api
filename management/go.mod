@@ -2,7 +2,11 @@ module management
 
 go 1.22.5
 
-require gorm.io/gorm v1.25.11
+require (
+	github.com/sirupsen/logrus v1.9.3
+	gorm.io/driver/postgres v1.5.9
+	gorm.io/gorm v1.25.11
+)
 
 require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -13,6 +17,6 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.17.0 // indirect
-	gorm.io/driver/postgres v1.5.9 // indirect
 )
