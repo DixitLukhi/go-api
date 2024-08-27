@@ -27,4 +27,6 @@ var (
 	NewServer  = "new-server"
 	NewStore   = "new-store"
 	CreateUser = "create-user"
+	GetUsers   = "get-users"
+	GetUser    = "get-user"
 )

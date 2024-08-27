@@ -5,6 +5,7 @@ import (
 	"management/model"
 	"management/util"
 
+	"github.com/google/uuid"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -40,4 +41,6 @@ func (store *Postgress) NewStore() error {
 type StoreOperations interface {
 	NewStore() error
 	CreateUser(user *model.User) error
+	GetUsers() ([]model.User, error)
+	GetUser(userID uuid.UUID) (model.User, error)
 }
