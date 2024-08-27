@@ -1,0 +1,83 @@
+basePath: /
+definitions:
+  model.Name:
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  model.User:
+    type: object
+host: loclhost:8000
+info:
+  contact: {}
+  description: API for managing School opertions
+  title: Management
+  version: "1.0"
+paths:
+  /user/{id}:
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Get a user by ID
+      tags:
+      - users
+  /user/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+      summary: Get all users
+      tags:
+      - users
+  /user/create:
+    post:
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Create a user
+      tags:
+      - users
+schemes:
+- http
+- https
+swagger: "2.0"

@@ -8,7 +8,7 @@ import (
 
 type User struct {
 	ID        uuid.UUID `gorm:"primarykey" json:"id"`
-	Name      Name      `gorm:"embedded" json:"name"`
+	Name      Name      `gorm:"embedded" binding:"required" json:"name" example:"Dixit"`
 	Address   Address   `gorm:"embedded" json:"address"`
 	Active    bool      `json:"active"`
 	CreatedAt time.Time `json:"created_at"`
@@ -28,5 +28,5 @@ type Address struct {
 	Lane    string `json:"lane"`
 	City    string `json:"city"`
 	State   string `json:"state"`
-	Pincode string `json:"pincode"`
+	Pincode string `gorm:"not null; unique" json:"pincode"`
 }
