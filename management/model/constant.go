@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 var (
 	LogLevel        = "log-level"
 	LogLevelInfo    = "info"
@@ -29,4 +31,10 @@ var (
 	CreateUser = "create-user"
 	GetUsers   = "get-users"
 	GetUser    = "get-user"
+	SignUp     = "sign-up"
+	SignIn     = "sign-in"
 )
+
+var TokenExpiration = time.Hour * 24
+
+var SecretKey = []byte("dixitlukhi-golang-secret-key")

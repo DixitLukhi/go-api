@@ -11,6 +11,8 @@ func (api ApiRoutes) UserRoutes(routes *gin.Engine) {
 	group := routes.Group("user")
 	{
 		group.POST("/create", api.CreateUser)
+		group.POST("/signup", api.SignUp)
+		group.POST("/signin", api.SignIn)
 		group.GET("/all", api.GetUsers)
 		group.GET("/:id", api.GetUser)
 	}
@@ -57,4 +59,31 @@ func (api ApiRoutes) GetUsers(ctx *gin.Context) {
 func (api ApiRoutes) GetUser(ctx *gin.Context) {
 	util.Log(model.LogLevelInfo, model.ApiPackage, model.GetUser, "Fetch user", nil)
 	api.Server.CreateUser(ctx)
+}
+
+// Handler to SignUp a user
+// @router /user/signup [post]
+// @summary SignUp a user
+// @tags users
+// @accept json
+// @produce json
+// @param user body model.User true "User object"
+// @Success 200 {string} string "Successful SignUp"
+// @failure 400 {object} model.ErrorResponse
+// @Security ApiKeyAuth
+func (api ApiRoutes) SignUp(c *gin.Context) {
+	api.Server.SignUp(c)
+}
+
+// Handler to signIn a user by email and password
+// @router /user/signin [post]
+// @summary SighIn user
+// @tags users
+// @produce json
+// @param user body model.UserSignIn true "User object"
+// @Success 200 {string} string "Successful SignIn"
+// @failure 404 {object} model.ErrorResponse
+// @Security ApiKeyAuth
+func (api ApiRoutes) SignIn(c *gin.Context) {
+	api.Server.SignIn(c)
 }

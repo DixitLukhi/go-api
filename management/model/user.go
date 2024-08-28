@@ -9,6 +9,8 @@ import (
 type User struct {
 	ID        uuid.UUID `gorm:"primarykey" json:"id"`
 	Name      Name      `gorm:"embedded" binding:"required" json:"name" example:"Dixit"`
+	Email     string    `gorm:"not null; unique" binding:"required" json:"email"`
+	Password  string    `gorm:"not null" binding:"required" json:"password"`
 	Address   Address   `gorm:"embedded" json:"address"`
 	Active    bool      `json:"active"`
 	CreatedAt time.Time `json:"created_at"`
@@ -29,4 +31,9 @@ type Address struct {
 	City    string `json:"city"`
 	State   string `json:"state"`
 	Pincode string `gorm:"not null; unique" json:"pincode"`
+}
+
+type UserSignIn struct {
+	Email    string `gorm:"not null; unique" binding:"required" json:"email"`
+	Password string `gorm:"not null" binding:"required" json:"password"`
 }

@@ -1,6 +1,7 @@
 package store
 
 import (
+	"fmt"
 	"management/model"
 	"management/util"
 
@@ -52,4 +53,31 @@ func (store Postgress) GetUser(userID uuid.UUID) (model.User, error) {
 
 	util.Log(model.LogLevelInfo, model.StorePackage, model.GetUser, "User from db", user)
 	return user, nil
+}
+
+func (store Postgress) SignUp(user *model.User) error {
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignUp, "Creating new user with signup api", nil)
+
+	response := store.DB.Create(user)
+	if response.Error != nil {
+		util.Log(model.LogLevelError, model.StorePackage, model.SignUp, "Error while creating new user  with signup api", response.Error)
+		return response.Error
+	}
+
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignUp, "New user created  with signup api", nil)
+	return nil
+}
+
+func (store Postgress) SignIn(userSignIn *model.UserSignIn) (*model.User, error) {
+	var user model.User
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignIn, "Reading user data from sign in", nil)
+
+	response := store.DB.Where("email = ? AND password = ?", userSignIn.Email, userSignIn.Password).First(&user)
+	if response.Error != nil {
+		util.Log(model.LogLevelError, model.StorePackage, model.SignIn, "Error while creating new user  with signup api", response.Error)
+		return &user, fmt.Errorf("error while fetching user record for id, err = %v", response.Error)
+	}
+
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignIn, "User data", user)
+	return &user, nil
 }

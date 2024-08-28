@@ -43,4 +43,6 @@ type StoreOperations interface {
 	CreateUser(user *model.User) error
 	GetUsers() ([]model.User, error)
 	GetUser(userID uuid.UUID) (model.User, error)
+	SignUp(user *model.User) error
+	SignIn(userSignIn *model.UserSignIn) (*model.User, error)
 }
